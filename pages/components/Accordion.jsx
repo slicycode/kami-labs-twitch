@@ -9,7 +9,7 @@ const Accordion = ({ channel, displayName = channel }) => {
 
   return (
     <div className='my-4'>
-      <div className=' w-1/2 mx-auto flex justify-center items-center gap-x-10'>
+      <div className='mx-auto flex flex-col gap-y-5 xl:flex-row justify-center items-center gap-x-10'>
         <a
           href={"https://twitch.tv/" + channel.user_name}
           className='cursor-pointer hover:scale-105'
@@ -47,7 +47,7 @@ const Accordion = ({ channel, displayName = channel }) => {
         </div>
       </div>
       {isActive && (
-        <div className='flex justify-center mt-4'>
+        <div className='xl:flex-row flex flex-col items-center justify-center mt-4'>
           <TwitchPlayer
             channel={channel.user_name}
             parent={["kami-labs.fr"]}
@@ -57,7 +57,6 @@ const Accordion = ({ channel, displayName = channel }) => {
           <TwitchChat channel={channel.user_name} theme='dark' height='480px' />
         </div>
       )}
-      <div className='bg-[#f1f1f1] h-1 my-4'></div>
     </div>
   );
 };

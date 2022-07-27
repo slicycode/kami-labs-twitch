@@ -3,16 +3,22 @@ import Accordion from "./Accordion";
 import Image from "next/image";
 import api from "../api/twitch_api";
 import live from "../../assets/icons/live.png";
+import premium from "../../assets/icons/top-rated.png";
 
 const LiveOn = () => {
   const [channels, setChannels] = useState([]);
+  const [premiumChannels, setPremiumChannels] = useState([]);
   const [online, setOnline] = useState(false);
 
   // REMPLACER OU AJOUTER LES NOMS DES CHAINES TWITCH
-  let channelName = [
+  let premiumChannelName = [
     {
-      name: "kennystream",
+      name: "sardoche",
     },
+  ];
+
+  // REMPLACER OU AJOUTER LES NOMS DES CHAINES TWITCH
+  let channelName = [
     {
       name: "quin69",
     },
@@ -22,15 +28,13 @@ const LiveOn = () => {
     {
       name: "towelliee",
     },
-    {
-      name: "metashi12",
-    },
     // {
     //   name: "NOM_DE_CHAINE",
     // },
   ];
 
   let channelNames = channelName.map((channel) => channel.name);
+  let premiumChannelNames = premiumChannelName.map((channel) => channel.name);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,15 +44,29 @@ const LiveOn = () => {
         )}`
       );
 
+      const premiumResult = await api.get(
+        `https://api.twitch.tv/helix/streams/?user_login=${premiumChannelNames.join(
+          "&user_login="
+        )}`
+      );
+
       let dataArray = result.data.data;
+      let premiumDataArray = premiumResult.data.data;
 
       let gameIDs = dataArray.map((stream) => {
         return stream.game_id;
       });
+      let premiumGameIDs = premiumDataArray.map((premiumStream) => {
+        return premiumStream.game_id;
+      });
 
       let baseURL = "https://api.twitch.tv/helix/games?";
       let queryParams = "";
+
       gameIDs.map((id) => {
+        return (queryParams = queryParams + `id=${id}&`);
+      });
+      premiumGameIDs.map((id) => {
         return (queryParams = queryParams + `id=${id}&`);
       });
 
@@ -70,7 +88,23 @@ const LiveOn = () => {
         stream.thumbnail_url = newURL;
         return stream;
       });
+
+      let premiumFinalArray = premiumDataArray.map((premiumStream) => {
+        premiumStream.gameName = "";
+        gameNameArray.map((name) => {
+          if (premiumStream.game_id === name.id) {
+            return (premiumStream.gameName = name.name);
+          }
+        });
+
+        let newURL = premiumStream.thumbnail_url
+          .replace("{width}", "250")
+          .replace("{height}", "150");
+        premiumStream.thumbnail_url = newURL;
+        return premiumStream;
+      });
       setChannels(finalArray);
+      setPremiumChannels(premiumFinalArray);
     };
     fetchData();
   }, []);
@@ -87,8 +121,33 @@ const LiveOn = () => {
       </div>
       <div className='bg-[#252626] h-4 mt-10'></div>
       <div>
+        {premiumChannels.map((premiumChannel) => (
+          <div className='relative pt-4 bg-[#2c3e50]/90'>
+            <div className='items-center justify-center flex xl:absolute 2xl:left-[250px] xl:top-3'>
+              <div className='flex flex-col items-center'>
+                <div className='flex items-center justify-center'>
+                  <Image src={premium} width={130} height={130} />
+                </div>
+                <span className='uppercase font-semibold text-[#f1c40f]'>
+                  Stream mis en avant
+                </span>
+                <small className='text-[#bf94ff] cursor-pointer'>
+                  {/* lien vers l'article d'explication */}
+                  <a href='/' target='_blank'>
+                    En savoir plus
+                  </a>
+                </small>
+              </div>
+            </div>
+            <Accordion channel={premiumChannel} />
+            <div className='bg-[#f1c40f] h-1 my-4'></div>
+          </div>
+        ))}
         {channels.map((channel) => (
-          <Accordion channel={channel} />
+          <>
+            <Accordion channel={channel} />
+            <div className='bg-[#f1f1f1] h-1 my-4'></div>
+          </>
         ))}
       </div>
     </>
