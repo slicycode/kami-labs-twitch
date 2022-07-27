@@ -133,7 +133,7 @@ const LiveOn = () => {
                 </span>
                 <small className='text-[#bf94ff] cursor-pointer'>
                   {/* lien vers l'article d'explication */}
-                  <a href='/' target='_blank'>
+                  <a href='/' target='_blank' rel='noreferrer'>
                     En savoir plus
                   </a>
                 </small>

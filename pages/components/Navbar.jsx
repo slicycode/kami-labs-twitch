@@ -9,7 +9,7 @@ const Navbar = () => {
       />
       <div className='flex items-center gap-x-5 p-3 w-[70%] mx-auto'>
         {/* LIEN VERS SITE PRINCIPAL*/}
-        <a href='/' target='_blank'>
+        <a href='/' target='_blank' rel='noreferrer'>
           <AiFillHome className='h-6 w-6 hover:cursor-pointer hover:scale-105' />
         </a>
         <span className='uppercase font-bold text-sm'>News Wotlk classic</span>
