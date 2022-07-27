@@ -113,7 +113,7 @@ const LiveOn = () => {
     <>
       <div className='md:flex-row flex flex-col gap-y-2 items-center justify-center gap-x-10 mt-10'>
         <div className='flex'>
-          <Image src={live} width={150} height={50} />
+          <Image src={live} width={150} height={50} alt='icon-live' />
         </div>
         <h1 className='text-2xl font-semibold'>
           Stream WoW Classic actuellement en ligne
@@ -121,12 +121,17 @@ const LiveOn = () => {
       </div>
       <div className='bg-[#252626] h-4 mt-10'></div>
       <div>
-        {premiumChannels.map((premiumChannel) => (
-          <div className='relative pt-4 bg-[#2c3e50]/90'>
+        {premiumChannels.map((premiumChannel, index) => (
+          <div className='relative pt-4 bg-[#2c3e50]/90' key={index}>
             <div className='items-center justify-center flex xl:absolute 2xl:left-[250px] xl:top-3'>
               <div className='flex flex-col items-center'>
                 <div className='flex items-center justify-center'>
-                  <Image src={premium} width={130} height={130} />
+                  <Image
+                    src={premium}
+                    width={130}
+                    height={130}
+                    alt='icon-live'
+                  />
                 </div>
                 <span className='uppercase font-semibold text-[#f1c40f]'>
                   Stream mis en avant
@@ -143,11 +148,11 @@ const LiveOn = () => {
             <div className='bg-[#f1c40f] h-1 my-4'></div>
           </div>
         ))}
-        {channels.map((channel) => (
-          <>
+        {channels.map((channel, index) => (
+          <div key={index}>
             <Accordion channel={channel} />
             <div className='bg-[#f1f1f1] h-1 my-4'></div>
-          </>
+          </div>
         ))}
       </div>
     </>

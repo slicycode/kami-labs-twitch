@@ -1,9 +1,13 @@
+import Image from "next/image";
 import { AiFillHome } from "react-icons/ai";
 
 const Navbar = () => {
   return (
     <div className='bg-[#252626]'>
-      <img
+      <Image
+        width={1920}
+        layout='intrinsic'
+        height={270}
         src='https://kami-labs.fr/wp-content/uploads/2022/04/header_kami_labs_v2.jpg'
         alt=''
       />

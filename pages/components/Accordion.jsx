@@ -11,27 +11,30 @@ const Accordion = ({ channel, displayName = channel }) => {
     <div className='my-4'>
       <div className='mx-auto flex flex-col gap-y-5 xl:flex-row justify-center items-center gap-x-10'>
         <a
-          href={"https://twitch.tv/" + channel.user_name}
+          href={"https://twitch.tv/" + channel?.user_name}
           className='cursor-pointer hover:scale-105'
           target='_blank'
+          rel='noreferrer'
         >
-          <img
+          <Image
+            width={"250px"}
+            height={"150px"}
             className='rounded-md'
-            src={channel.thumbnail_url}
-            alt={channel.title}
+            src={channel?.thumbnail_url}
+            alt={channel?.title}
           />
         </a>
-        <div className='bg-[#18181b] px-4 py-[14px] rounded-md w-80'>
+        <div className='bg-[#18181b] px-4 py-[14px] h-[150px] rounded-md w-80'>
           <div className='flex gap-x-3 items-center mb-2'>
             <span className='text-xl mb-1'>Actuellement en</span>
 
-            <Image src={live} width={90} height={30} />
+            <Image src={live} width={90} height={30} alt='icon-live' />
           </div>
           <h3 className='font-semibold text-xl'>
-            {channel.user_name} streame {channel.gameName}
+            {channel?.user_name} streame {channel?.gameName}
           </h3>
           <h3 className='text-[#bf94ff] mt-1'>
-            {channel.viewer_count} spectateurs
+            {channel?.viewer_count} spectateurs
           </h3>
         </div>
         <div
@@ -49,12 +52,16 @@ const Accordion = ({ channel, displayName = channel }) => {
       {isActive && (
         <div className='xl:flex-row flex flex-col items-center justify-center mt-4'>
           <TwitchPlayer
-            channel={channel.user_name}
+            channel={channel?.user_name}
             parent={["kami-labs.fr"]}
             autoplay={false}
             muted={true}
           />
-          <TwitchChat channel={channel.user_name} theme='dark' height='480px' />
+          <TwitchChat
+            channel={channel?.user_name}
+            theme='dark'
+            height='480px'
+          />
         </div>
       )}
     </div>
