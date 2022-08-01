@@ -13,20 +13,20 @@ const LiveOn = () => {
   // REMPLACER OU AJOUTER LES NOMS DES CHAINES TWITCH
   let premiumChannelName = [
     {
-      name: "sardoche",
+      name: "naowh",
     },
   ];
 
   // REMPLACER OU AJOUTER LES NOMS DES CHAINES TWITCH
   let channelName = [
     {
-      name: "quin69",
+      name: "zoltan",
     },
     {
-      name: "jokerdtv",
+      name: "yunatahel",
     },
     {
-      name: "towelliee",
+      name: "drunge_",
     },
     // {
     //   name: "NOM_DE_CHAINE",
